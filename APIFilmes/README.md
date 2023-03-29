@@ -1,18 +1,17 @@
-## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 
-## Folder Structure
+🛠️ Descrição do seu projeto - Dia 2
 
-The workspace contains two folders by default, where:
+* Pegar os dados tratos na lista gerada pelo APP.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+![image](https://user-images.githubusercontent.com/128855481/228687671-2a4875b0-f368-46f3-b1bb-ab167fa92f8a.png)
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+* Criar imagens com texto e imagem avaliativa do filme.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+![image](https://user-images.githubusercontent.com/128855481/228687535-bf1387d2-645c-4865-bfa0-a5cde3f1da2b.png)
 
-## Dependency Management
+![image](https://user-images.githubusercontent.com/128855481/228687795-29086bb0-b044-4485-9fba-2094df006429.png)
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- `Dia 2`: Deixei para um projeto futuro uma tratativa melhor da imagem de avaliativa
+- `Dia 2`: Como é visivel na imagem, o poster fornecido pela API não coincide com o filme apresentado.
+- `Dia 2`: Problemas para usar arquivos locais, aparentemente o problema esta relacionado com permissões do sistema.
