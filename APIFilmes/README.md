@@ -1,4 +1,20 @@
 
+![image](https://user-images.githubusercontent.com/128855481/228686948-e0e42e7f-a4e4-4cf4-84db-20578b7b5114.png)
+<p align="center">
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
+</p>
+
+
+<h4 align="center"> 
+    :construction:  Projeto em construção  :construction:
+</h4>
+
+# :hammer: Descrição
+
+Um projeto de estudo e desenvolvimento pessoal com a linguagem de programação Java:
+
+- `Dia 2`: Fazer com que o aplicativo crie imagens com os dados obtidos pela API.
+
 
 🛠️ Descrição do seu projeto - Dia 2
 
