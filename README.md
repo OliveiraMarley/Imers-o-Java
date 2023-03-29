@@ -18,7 +18,7 @@ Um projeto de estudo e desenvolvimento pessoal com a linguagem de programação 
 - `Dia 2`: Fazer com que o aplicativo crie imagens com os dados obtidos pela API.
 
 
-# 🛠️ Descrição do seu projeto - Dia 1
+# 🛠️ Descrição do projeto - Dia 1
 
 * O projeto consiste no consumo de uma API de filmes e listalos com sua classificação e poster.
 * Foi implementado uma função de escolha entre 4 APIs disponiveis no momento do desenvolvimento.
