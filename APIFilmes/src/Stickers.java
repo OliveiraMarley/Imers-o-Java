@@ -16,28 +16,29 @@ import javax.imageio.ImageIO;
 
 public class Stickers {
     
-    void cria(InputStream pathImage, String nomeArquivo, String texto, InputStream imagemAvaliacao) throws Exception{
+    void cria(InputStream pathImage, String nomeArquivo, String texto, InputStream imagemAvaliacao) throws Exception{//Aqui é declarao as variaeis inseridas na classe
       
         //leitura da imagem
 
        // InputStream pathImage = new FileInputStream(new File("D:/Marley/Aplicações/ImersãoJava/APIFilmes/entrada/filme.jpg"));
        // InputStream pathImage = new URL("https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies_1.jpg").openStream();
-        BufferedImage ImagemOriginal = ImageIO.read(pathImage);
+        BufferedImage ImagemOriginal = ImageIO.read(pathImage);//Pega a imagem informada na aplicação principal
         
 
         //cria nova imagem em memoria com transparencia e tamanho novo
 
-        int Largura = ImagemOriginal.getWidth();
-        int Altura = ImagemOriginal.getHeight();
-        int novaAltura = Altura + 200;
-        BufferedImage novaImagem = new BufferedImage(Largura, novaAltura, BufferedImage.TRANSLUCENT);
+        int Largura = ImagemOriginal.getWidth();//Informa a largura da imagem
+        int Altura = ImagemOriginal.getHeight();//Informa a altura da imagem
+        int novaAltura = Altura + 200;//Muda a altura da imagem
+        BufferedImage novaImagem = new BufferedImage(Largura, novaAltura, BufferedImage.TRANSLUCENT);//Cria uma nova imagem com tamanho diferente
         
         //copiar imagem original para a nova em memoria
 
-        Graphics2D graphics = (Graphics2D) novaImagem.getGraphics();
-        graphics.drawImage(ImagemOriginal, 0, 0, null);
+        Graphics2D graphics = (Graphics2D) novaImagem.getGraphics();//Pega a imagem nova
+        graphics.drawImage(ImagemOriginal, 0, 0, null);//Desenha a imagem nova em memoria
 
         //Imagem avaliação
+        //Aqui é tratado a imagem de aprovado e reprovado
 
         BufferedImage imagemSobreposicao = ImageIO.read(imagemAvaliacao);
         int posicaoImagemSobreposicaoX = 0;
@@ -45,9 +46,10 @@ public class Stickers {
         graphics.drawImage(imagemSobreposicao, posicaoImagemSobreposicaoX, posicaoImagemSobreposicaoY, null);
 
 
-        //configurar a fonte
+        //configurar a fonte do texto
 
-        Font fonte = new Font("Impact", Font.PLAIN, 84);
+        int size = 50;
+        Font fonte = new Font("Impact", Font.PLAIN, size);
         graphics.setColor(Color.yellow);
         graphics.setFont(fonte);
 
@@ -58,7 +60,7 @@ public class Stickers {
         int larguraTesxto = (int) areaEscrita.getWidth();
         int alturaTexto = (int) areaEscrita.getHeight();
         int posicaoTextoX = (Largura - larguraTesxto) / 2;
-        int posicaoTextoY = (novaAltura - (alturaTexto / 2));// + (alturaTexto / 2) ;
+        int posicaoTextoY = (novaAltura - (alturaTexto / 2));
         graphics.drawString(texto, posicaoTextoX, posicaoTextoY);
 
         FontRenderContext fontRenderContext = graphics.getFontRenderContext();

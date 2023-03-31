@@ -1,104 +1,39 @@
 import java.io.File;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        String opcao = null;//Declara e inicializa a variavel
-        String userChoice;//Declara variavel
-        try (//usuario escolhe a API desejada
-        var Lista = new Scanner(System.in)) {
-            System.out.println("\n\u001b[95m\u001b[107;1m       Escolha a lista a seguir:      \n\n\u001b[95m\u001b[107;1m\u001b[1m 1 \u001b[m- \u001b[3mTop filmes \u001b[m\n\u001b[1m\u001b[95m\u001b[107;1m 2 \u001b[m- \u001b[3mTop séries \u001b[m\n\u001b[1m\u001b[95m\u001b[107;1m 3 \u001b[m- \u001b[3mFilmes populares\u001b[m \n\u001b[1m\u001b[95m\u001b[107;1m 4 \u001b[m- \u001b[3mSéries populares\u001b[m");
-            userChoice = Lista.nextLine();// user input
-            System.out.println("\n\u001b[90m\u001b[106;1m       Lista escolhida: " + userChoice + "     \u001b[m\n");
-        }
-        switch (userChoice) {
-            case "1":
-            
-                opcao = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
-                break;
-            
-            case "2":
-                
-                opcao = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopTVs.json";
-                break;
-            
-            case "3":
+        EscolhaAPI escolhaAPI = new EscolhaAPI();//Realiza chamada da classe de seleção de PI
+        API api = escolhaAPI.escolhaAPI();//Pega a API escolhida
 
-                opcao = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies.json";
-                break;
+        String URL = api.getUrl();//("URL da API") 
+        var http = new clienteHttp();//Realiza a chamada da classe de conexão
+        String json = http.buscaDados(URL);//Pega os dados da API
 
-            case "4":
+        float contador = 0;//Declara e inicializa variavel contador
+        var diretorio = new File("Stickers/");//Declara o diretorio onde as imagens serão criadas
+        diretorio.mkdir();//Cria o diretorio caso não exista
 
-                opcao = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularTVs.json";
-                break;
+        var geradorImage = new Stickers();//Realiza a chamada do app Stickers
+        ExtratorConteudo extrator = api.getExtrator();//Usa o extrator de dados correspondente a API
+        List<Conteudo> Conteudos = extrator.extraiConteudos(json);//Pega os dados tratados da API
 
-            default:
-
-                System.out.println("\u001b[37m\u001b[41;1m\u001b[1m       Opção invalida          \u001b[m\n");
-                break;
-        }       
-
-
-
-        //Pegar os dados do IMDB:
-        //Fazer uma conexão HTTP e buscar
-        String URL = opcao;//("URL da API")
-        URI endereco = URI.create(URL);//Atribui a URL na URI(similar a URL, mas generica)
-        var client = HttpClient.newHttpClient();//criar um novo http client e joga em uma variavel
-        var request = HttpRequest.newBuilder(endereco).GET().build();//Realiza um request da URL, pega e cria as informações
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());//HttpResponse<String> = var; Acessa o site e joga o body na variavel response em string
-        String body = response.body();// cria a variavel body com os dados do response
-        System.out.println(body);// Printa os dados do body
-
-        //Extrair os dados que interessam (titulo, poster, classificação)
-        
-        var Parser = new JsonParser();//Usa a aplicação parser
-        List<Map<String, String>> ListaDeFilmes = Parser.Parse(body);//Cria a lista do JSON com parser
-        
-        System.out.println(ListaDeFilmes.get(0));
-        //Exibir e manipular os dados
-
-        float contador = 0;//Declara e inicializa variavel
-
-        var diretorio = new File("Stickers/");
-        diretorio.mkdir();
-
-
-        var geradorImage = new Stickers();
-        for (Map<String,String> filme : ListaDeFilmes) {
+        for (var Conteudo : Conteudos) {
 
             contador = 0;//Reset variavel
-            String urlImage = filme.get("image");
-            String titulo = filme.get("title");
-            String nomeArquivo = "Stickers/" + titulo.replace(":", "-") + ".png";
-            String textoFigurinha;
-            InputStream imagemAvaliacao;
+            String urlImage = Conteudo.urlImagem();//Pega aURL da imagem
+            String titulo = Conteudo.titulo();//Pega o titulo da imagem
+            String nomeArquivo = "Stickers/" + titulo.replace(":", "-") + ".png";//Cria o nome da imagem e trata
+            double classificacao = Double.parseDouble(Conteudo.classificacao()); //Transforma a classificação em double
 
-            double classificacao = Double.parseDouble(filme.get("imDbRating"));//Trata a variavel de classificação
-            
-            if (classificacao >= 8.0) {
-                
-                textoFigurinha = "BRABO";
-                imagemAvaliacao = new URL("https://cdn-icons-png.flaticon.com/512/2722/2722007.png").openStream();
-
-            } else {
-
-                textoFigurinha = "HMMMMMMM";
-                imagemAvaliacao = new URL("https://png.pngtree.com/png-vector/20211016/ourmid/pngtree-rejected-icon-design-rounded-shape-png-image_3988333.png").openStream();
-            }
-                     
-            InputStream pathImage = new URL(urlImage).openStream();
-            geradorImage.cria(pathImage, nomeArquivo, textoFigurinha, imagemAvaliacao);
+            String textoFigurinha = api.TextoFigurinha(classificacao, titulo);//Escolhe a frase da figurinha
+            InputStream imagemAvaliacao = api.imagemAvaliacao(classificacao, api);//Escolhe imagem de sobreposição
+         
+            InputStream pathImage = new URL(urlImage).openStream();//pega a imagem da URL do poster
+            geradorImage.cria(pathImage, nomeArquivo, textoFigurinha, imagemAvaliacao);//Cria a imagem 
 
             System.out.println("\n");//Pula uma linha para organização
             System.out.println("\u001b[1m\u001b[97m\u001b[104;1mTitulo:\u001b[m\u001b[3m " + titulo + "\u001b[m");//Pega o titulo
@@ -106,8 +41,7 @@ public class App {
             System.out.println("\u001b[90m\u001b[103;1mClassificação: \u001b[3m" + classificacao + "\u001b[m");//Devolve a classificação
             while (contador <= classificacao) {//Desenha o emoji = classificação
                 contador ++;
-                System.out.print("💙️");
-                
+                System.out.print("💙️");       
             }
                        
         }
