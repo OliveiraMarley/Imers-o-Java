@@ -16,6 +16,7 @@
 Um projeto de estudo e desenvolvimento pessoal com a linguagem de programação Java:
 - `Dia 1`: Consumo da API e interpretação dos dados.
 - `Dia 2`: Fazer com que o aplicativo crie imagens com os dados obtidos pela API.
+- `Dia 3`: Organizar o aplicativo em classes, records, enum e usar a API da NASA.
 
 
 # 🛠️ Descrição do projeto - Dia 1
@@ -51,3 +52,15 @@ Um projeto de estudo e desenvolvimento pessoal com a linguagem de programação 
 - `Dia 2`: Deixei para um projeto futuro uma tratativa melhor da imagem de avaliativa
 - `Dia 2`: Como é visivel na imagem, o poster fornecido pela API não coincide com o filme apresentado.
 - `Dia 2`: Problemas para usar arquivos locais, aparentemente o problema esta relacionado com permissões do sistema.
+
+# 🛠️ Descrição do projeto - Dia 3
+
+* Organizar o programa.
+
+![image](https://user-images.githubusercontent.com/128855481/229051629-e4aff78b-a2dd-414e-91c9-c9a291b21ff7.png)
+
+* Adicionar uma API nova.
+
+![image](https://user-images.githubusercontent.com/128855481/229051774-4bed813a-f941-4c85-88b7-2fa3a8de7df6.png)
+
+- `Dia 3`: Foi adicionado uma customização da frase e logo para a API da nasa.
